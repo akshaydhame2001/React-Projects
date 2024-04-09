@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 export default function EventItem({ event }) {
+  console.log(event.image);
   const [images, setImages] = useState([]);
 
   useEffect(() => {
@@ -11,14 +12,20 @@ export default function EventItem({ event }) {
   const fetchImages = async () => {
     try {
       const response = await fetch(
-        "https://react-projects-server-gray.vercel.app/events/images"
+        "https://react-projects-server-nu.vercel.app/events/images"
       );
       const data = await response.json();
       setImages(data.images);
+      console.log(images);
+      console.log(data);
     } catch (error) {
       console.error("Error fetching images:", error);
     }
   };
+
+  useEffect(() => {
+    console.log(images);
+  }, [images]);
 
   const imageObj = images.find((img) => img.caption === event.image);
   const imageUrl = imageObj ? imageObj.path : "https://via.placeholder.com/300";

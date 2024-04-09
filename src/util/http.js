@@ -3,7 +3,7 @@ import { QueryClient } from "@tanstack/react-query";
 export const queryClient = new QueryClient();
 
 export async function fetchEvents({ signal, searchTerm, max }) {
-  let url = "https://react-projects-server-gray.vercel.app/events";
+  let url = "https://react-projects-server-nu.vercel.app/events";
 
   // if (searchTerm && max) {
   //   url += "?search=" + searchTerm + "&max=" + max;
