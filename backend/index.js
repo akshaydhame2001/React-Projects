@@ -1,7 +1,6 @@
-import fs from "node:fs/promises";
-
-import bodyParser from "body-parser";
-import express from "express";
+const fs = require("fs").promises;
+const bodyParser = require("body-parser");
+const express = require("express");
 
 const app = express();
 
@@ -173,5 +172,3 @@ app.delete("/events/:id", async (req, res) => {
 app.listen(3000, () => {
   console.log("Server running on port 3000");
 });
-
-module.exports = app;
