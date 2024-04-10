@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, Outlet, useNavigate, useParams } from "react-router-dom";
 import { deleteEvent, fetchEvent } from "../../util/http.js";
 
@@ -8,6 +8,30 @@ import ErrorBlock from "../UI/ErrorBlock.jsx";
 import Modal from "../UI/Modal.jsx";
 
 export default function EventDetails() {
+  const [images, setImages] = useState([]);
+
+  useEffect(() => {
+    fetchImages();
+  }, []);
+
+  const fetchImages = async () => {
+    try {
+      const response = await fetch(
+        "https://react-projects-server-nu.vercel.app/events/images"
+      );
+      const dataImage = await response.json();
+      setImages(dataImage.images);
+      console.log(images);
+      console.log(dataImage);
+    } catch (error) {
+      console.error("Error fetching images:", error);
+    }
+  };
+
+  useEffect(() => {
+    console.log(images);
+  }, [images]);
+
   const [isDeleting, setIsDeleting] = useState(false);
   const params = useParams();
   const queryClient = useQueryClient();
@@ -17,6 +41,12 @@ export default function EventDetails() {
     queryKey: ["events", params.id],
     queryFn: ({ signal }) => fetchEvent({ signal, id: params.id }),
   });
+
+  console.log(data);
+  const imageObj = data
+    ? images.find((img) => img.caption === data.image)
+    : null;
+  const imageUrl = imageObj ? imageObj.path : "https://via.placeholder.com/300";
 
   const {
     mutate,
@@ -87,7 +117,7 @@ export default function EventDetails() {
           </nav>
         </header>
         <div id="event-details-content">
-          <img src={`http://localhost:3000/${data.image}`} alt={data.title} />
+          <img src={imageUrl} alt={data.title} />
           <div id="event-details-info">
             <div>
               <p id="event-details-location">{data.location}</p>
