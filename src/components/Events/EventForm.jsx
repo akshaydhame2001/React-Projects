@@ -14,7 +14,10 @@ export default function EventForm({ inputData, onSubmit, children }) {
   });
 
   function handleSelectImage(image) {
-    setSelectedImage(image);
+    // setSelectedImage(image);
+    const selectedImage = data.find((img) => img.path === image);
+    setSelectedImage(selectedImage?.caption || "");
+    console.log(selectedImage.caption);
   }
 
   function handleSubmit(event) {

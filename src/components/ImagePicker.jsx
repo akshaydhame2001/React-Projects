@@ -1,5 +1,5 @@
 export default function ImagePicker({ images, selectedImage, onSelect }) {
-  console.log(images);
+  console.log(images, selectedImage);
   return (
     <div id="image-picker">
       <p>Select an image</p>
@@ -8,7 +8,7 @@ export default function ImagePicker({ images, selectedImage, onSelect }) {
           <li
             key={image.path}
             onClick={() => onSelect(image.path)}
-            className={selectedImage === image.path ? "selected" : undefined}
+            className={selectedImage === image.caption ? "selected" : undefined}
           >
             <img src={image.path} alt={image.caption} />
           </li>
