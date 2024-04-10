@@ -21,16 +21,10 @@ export default function EventDetails() {
       );
       const dataImage = await response.json();
       setImages(dataImage.images);
-      console.log(images);
-      console.log(dataImage);
     } catch (error) {
       console.error("Error fetching images:", error);
     }
   };
-
-  useEffect(() => {
-    console.log(images);
-  }, [images]);
 
   const [isDeleting, setIsDeleting] = useState(false);
   const params = useParams();
@@ -42,7 +36,7 @@ export default function EventDetails() {
     queryFn: ({ signal }) => fetchEvent({ signal, id: params.id }),
   });
 
-  console.log(data);
+  // console.log(data);
   const imageObj = data
     ? images.find((img) => img.caption === data.image)
     : null;
